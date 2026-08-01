@@ -68,7 +68,7 @@ Performs position-specific sequencing-error analysis using aligned BAM files and
 
 The script:
 
-* calculates mismatch, insertion, and deletion counts;
+* calculates position-specific mismatch and deletion counts;
 * calculates total sequencing-error rates;
 * summarizes base-quality scores;
 * compares the dA-AL-II and control samples;
