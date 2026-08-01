@@ -1,5 +1,7 @@
 # Nanopore Signal Analysis and Z-score-based Detection
 
+[![DOI](https://zenodo.org/badge/1319110691.svg)](https://doi.org/10.5281/zenodo.21737767)
+
 ## Overview
 
 This repository contains the custom downstream analysis scripts used for nanopore signal comparison, Z-score-based detection, sequencing-error analysis, statistical testing, classification-performance evaluation, and figure generation.
@@ -69,7 +71,7 @@ Performs position-specific sequencing-error analysis using aligned BAM files and
 The script:
 
 * calculates position-specific mismatch and deletion counts;
-* calculates combined mismatch and deletion error rates;
+* calculates combined error rates based on the currently implemented mismatch and deletion counts;
 * summarizes base-quality scores;
 * compares dA-AL-II and control samples;
 * calculates odds ratios using a pseudocount of 0.5;
@@ -403,35 +405,25 @@ Raw signal files, BAM files, and large processed signal matrices are not stored 
 
 ## Code availability
 
-All custom downstream scripts used for nanopore signal comparison, Z-score-based detection, statistical evaluation, sequencing-error analysis, classification-performance evaluation, and figure generation are publicly available at:
+All custom downstream scripts used for nanopore signal comparison, Z-score-based detection, statistical evaluation, sequencing-error analysis, classification-performance evaluation, and figure generation are publicly available in the GitHub repository:
 
 https://github.com/liuhaha0607/nanopore-zscore-analysis
 
-A versioned release of this repository will be archived in Zenodo.
+Version 1.0.0 of this repository has been permanently archived in Zenodo and is available at:
 
-After the Zenodo record has been created, the DOI will be added here:
+https://doi.org/10.5281/zenodo.21737768
 
-```text
-Zenodo DOI: [ADD ZENODO DOI]
-```
+The DOI badge at the top of this README points to the latest archived release of the repository.
 
-The public availability of the custom downstream code does not extend to the proprietary QT theoretical-current maptable or associated third-party upstream implementation.
+The public availability of the custom downstream code does not extend to the proprietary QT theoretical-current maptable or its associated third-party upstream implementation.
 
 ## Citation
 
-Until a Zenodo DOI is available, cite this repository as:
+If you use this code, please cite the archived version:
 
-```text
-Liu, Ran. Nanopore Signal Analysis and Z-score-based Detection.
-GitHub repository: https://github.com/liuhaha0607/nanopore-zscore-analysis
-```
+> Liu, Ran. *Nanopore Signal Analysis and Z-score-based Detection* (Version 1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.21737768
 
-After the Zenodo release has been created, update the citation with the version number and DOI:
-
-```text
-Liu, Ran. Nanopore Signal Analysis and Z-score-based Detection,
-version 1.0.0. Zenodo. https://doi.org/[ADD ZENODO DOI]
-```
+The version-specific DOI above identifies the exact archived release used for this study.
 
 ## License
 
