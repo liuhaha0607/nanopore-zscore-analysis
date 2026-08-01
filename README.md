@@ -17,7 +17,9 @@ The repository provides scripts for:
 * sequencing-error, odds-ratio, and Fisher's exact-test analysis;
 * generation of figures and tabular results used in the study.
 
-The signal-analysis scripts begin with prepared, normalized, reference-aligned signal matrices. This repository does not provide an end-to-end implementation for regenerating these matrices directly from raw nanopore signal files.
+The signal-analysis scripts use prepared, normalized, reference-aligned signal matrices as input. The corresponding raw signal files, sequencing reads, reference sequence, prepared signal matrices, and processed analysis results are publicly available in the associated Zenodo dataset:
+
+https://doi.org/10.5281/zenodo.21740475
 
 ## Repository contents
 
@@ -99,21 +101,36 @@ nanopore-zscore-analysis/
 └── fig/                       # Created automatically for output figures
 ```
 
-The `data/` directory is not included in the public repository because it may contain large raw, aligned, or processed research files.
+The `data/` directory is not included in the GitHub repository because it contains large research-data files.
+
+The complete data archive is publicly available in Zenodo:
+
+https://doi.org/10.5281/zenodo.21740475
 
 The `fig/` subdirectories are created automatically when the scripts are run.
 
-## Reproducibility scope and upstream signal processing
+## Reproducibility scope and input data
 
-Raw nanopore signals were processed, normalized, and aligned to reference positions before the custom downstream analyses provided in this repository.
+This repository provides the custom downstream analyses used for nanopore signal comparison, statistical testing, Z-score-based detection, classification-performance evaluation, sequencing-error analysis, and figure generation.
 
-Upstream signal processing was performed outside this repository using platform-specific workflows and resources. For the QT platform, reference-level signal mapping depended on a proprietary theoretical-current maptable supplied by Qitan Technology.
+The signal-analysis scripts use prepared, normalized, reference-aligned signal matrices as input. The sequencing-error analysis uses basecalled and reference-aligned BAM files together with a custom reference sequence.
 
-The proprietary QT maptable and its associated upstream implementation are subject to third-party restrictions. The authors do not have permission to publicly redistribute these materials, and they are therefore not included in this repository.
+The required data files are publicly available in the associated Zenodo dataset:
 
-Consequently, this repository supports reproduction of the custom downstream analyses from compatible, prepared reference-aligned signal matrices. It does not support complete regeneration of the QT aligned signal matrices directly from raw QT signal files.
+https://doi.org/10.5281/zenodo.21740475
 
-The proprietary restriction applies only to the upstream QT signal-mapping resource. All custom downstream scripts developed for signal comparison, statistical testing, Z-score-based detection, classification evaluation, sequencing-error analysis, and figure generation are publicly provided in this repository.
+The Zenodo dataset contains:
+
+* raw Oxford Nanopore FAST5 signal files;
+* raw Qitan Technology H5 signal files;
+* basecalled and reference-aligned BAM files;
+* BAM index files;
+* the custom reference sequence;
+* prepared reference-aligned signal matrices;
+* processed sequencing-error and odds-ratio results;
+* a data README describing the deposited files.
+
+This repository focuses on the downstream analytical workflow and does not provide an end-to-end implementation of platform-specific upstream signal processing.
 
 ## Software requirements
 
@@ -144,13 +161,19 @@ conda activate nanopore-zscore-analysis
 
 Using the provided environment specification is recommended.
 
-## Preparing the input directory
+## Obtaining the input data
 
-Create a directory named `data` in the repository root before running the scripts:
+Download the associated dataset from Zenodo:
+
+https://doi.org/10.5281/zenodo.21740475
+
+Create a directory named `data` in the repository root:
 
 ```bash
 mkdir data
 ```
+
+Place the required files in the `data/` directory before running the analyses.
 
 The expected local structure is:
 
@@ -165,6 +188,10 @@ nanopore-zscore-analysis/
 │   ├── ONT_control.bam.bai
 │   ├── ONT_dAAL.bam
 │   ├── ONT_dAAL.bam.bai
+│   ├── QT_control.bam
+│   ├── QT_control.bam.bai
+│   ├── QT_dAAL.bam
+│   ├── QT_dAAL.bam.bai
 │   └── ref.fasta
 └── analysis scripts
 ```
@@ -196,7 +223,9 @@ The value associated with `sigs` must be a two-dimensional signal matrix in whic
 
 The compatible signal matrices must have already undergone the required upstream signal processing, normalization, reference alignment, and resampling.
 
-The proprietary QT theoretical-current maptable and the upstream procedure used to generate the QT aligned signal matrices are not distributed in this repository.
+The prepared signal matrices used by these scripts are publicly available in the associated Zenodo dataset:
+
+https://doi.org/10.5281/zenodo.21740475
 
 ## Expected sequencing-analysis inputs
 
@@ -218,6 +247,8 @@ data/ONT_dAAL.bam.bai
 The BAM files must be aligned to the reference sequence contained in `ref.fasta`.
 
 The current script analyzes the first reference sequence in `ref.fasta`. The reference name used in the BAM files must therefore match the first reference name in the FASTA file.
+
+The corresponding BAM files, BAM index files, and reference sequence are available in the associated Zenodo dataset.
 
 ## Running the analyses
 
@@ -282,7 +313,9 @@ fig/ONT/
 python generate_odds.py
 ```
 
-The current script uses the ONT BAM files and generates:
+The platform is selected using the `platform` variable inside the script.
+
+The script generates:
 
 * a position-specific odds-ratio table;
 * an odds-ratio plot;
@@ -295,7 +328,13 @@ The CSV result is saved under:
 data/
 ```
 
-The figures are saved under:
+The figures are saved under the corresponding platform directory:
+
+```text
+fig/QT/
+```
+
+or:
 
 ```text
 fig/ONT/
@@ -349,9 +388,13 @@ fig/QT/hotmap.png
 fig/QT/DIS_radar_plot.png
 ```
 
-Equivalent signal-comparison and Z-score results are generated under `fig/ONT/`.
+Equivalent signal-comparison and Z-score results are generated under:
 
-The sequencing-error analysis generates:
+```text
+fig/ONT/
+```
+
+The sequencing-error analysis generates files including:
 
 ```text
 data/ONT_odds_ratio.csv
@@ -360,70 +403,47 @@ fig/ONT/ONT_esb_radar.png
 fig/ONT/ONT_quality.png
 ```
 
+When the platform variable is changed to QT, corresponding output files are generated for the QT dataset.
+
 The exact output files depend on the platform and configuration selected inside each script.
-
-## Important limitations
-
-This repository does not include:
-
-* the proprietary QT theoretical-current maptable;
-* proprietary QT signal-mapping software or implementation details;
-* raw `.fast5`, `.pod5`, or `.h5` signal files;
-* large BAM files;
-* large processed signal matrices;
-* confidential or third-party materials that the authors are not authorized to redistribute.
-
-The absence of the proprietary QT maptable means that the QT aligned signal matrices cannot be regenerated from raw QT signal files using this repository alone.
-
-The publicly available scripts nevertheless document and implement the custom downstream computational procedures used for:
-
-* signal visualization;
-* signal-difference testing;
-* position-specific Z-score calculation;
-* threshold-based classification;
-* ROC and confusion-matrix analysis;
-* mixture-proportion evaluation;
-* mismatch and deletion error analysis;
-* odds-ratio calculation;
-* figure generation.
 
 ## Data availability
 
-The raw nanopore signal files and associated sequencing data generated in this study will be deposited in a public sequencing archive before publication.
+The raw ionic-current signal files, basecalled and reference-aligned sequencing reads, BAM index files, prepared reference-aligned signal matrices, custom reference sequence, and processed analysis results are publicly available in Zenodo:
 
-Accession information will be added after the archive submission has been processed:
+https://doi.org/10.5281/zenodo.21740475
 
-```text
-Archive: [NCBI Sequence Read Archive or European Nucleotide Archive]
-BioProject/Study accession: [ADD BIOPROJECT OR STUDY ACCESSION]
-Run accession(s): [ADD RUN ACCESSION NUMBERS]
-```
+The dataset includes data generated using both Oxford Nanopore and Qitan Technology sequencing platforms.
 
-The proprietary QT theoretical-current maptable is owned or controlled by a third party and cannot be redistributed by the authors.
-
-Raw signal files, BAM files, and large processed signal matrices are not stored directly in this GitHub repository.
+Large research-data files are archived in Zenodo and are therefore not stored directly in this GitHub repository.
 
 ## Code availability
 
-All custom downstream scripts used for nanopore signal comparison, Z-score-based detection, statistical evaluation, sequencing-error analysis, classification-performance evaluation, and figure generation are publicly available in the GitHub repository:
+All custom downstream scripts used for nanopore signal comparison, Z-score-based detection, statistical evaluation, sequencing-error analysis, classification-performance evaluation, and figure generation are publicly available in this GitHub repository:
 
 https://github.com/liuhaha0607/nanopore-zscore-analysis
 
-Version 1.0.0 of this repository has been permanently archived in Zenodo and is available at:
+Version 1.0.0 of the repository has been permanently archived in Zenodo:
 
 https://doi.org/10.5281/zenodo.21737768
 
 The DOI badge at the top of this README points to the latest archived release of the repository.
 
-The public availability of the custom downstream code does not extend to the proprietary QT theoretical-current maptable or its associated third-party upstream implementation.
-
 ## Citation
 
-If you use this code, please cite the archived version:
+### Software
+
+If you use the analysis code, please cite the archived software version:
 
 > Liu, Ran. *Nanopore Signal Analysis and Z-score-based Detection* (Version 1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.21737768
 
-The version-specific DOI above identifies the exact archived release used for this study.
+### Dataset
+
+If you use the associated data, please cite:
+
+> Liu, Ran, Shen, Yezhuang, Mao, Jie, Li, Chunzheng, Zhang, Yawei, Hu, Mandong, Zhang, Yizhe, Han, Qiuying, Gong, Weili, Chen, Liang, He, Kun, Zhou, Tao, Li, Weihua, and Xie, Xianxing. *Nanopore signal and sequencing data for control and dA-AL-II-modified synthetic DNA generated using Oxford Nanopore and Qitan Technology platforms* (Version 1.0.0) [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.21740475
+
+The version-specific DOI identifies the exact archived software or dataset release used for the study.
 
 ## License
 
@@ -431,4 +451,4 @@ This project is distributed under the MIT License.
 
 See the `LICENSE` file for the full license text.
 
-The MIT License applies only to the original code contained in this repository. It does not grant rights to any proprietary third-party model, maptable, software, data, or other restricted material referred to in this documentation.
+The MIT License applies to the original code contained in this repository.
