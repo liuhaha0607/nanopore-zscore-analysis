@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Nanopore Signal Analysis and Z-score-based Detection"
+type: software
+authors:
+  - family-names: "Liu"
+    given-names: "Ran"
+version: 1.0.0
+repository-code: "https://github.com/liuhaha0607/nanopore-zscore-analysis"
+license: MIT
+abstract: "Custom downstream scripts for nanopore signal comparison, Z-score-based detection, statistical evaluation, sequencing-error analysis, and figure generation."
+keywords:
+  - nanopore sequencing
+  - signal analysis
+  - Z-score
+  - sequencing error
+  - computational reproducibility
