@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Raw and processed research data
+data/*
+!data/README.md
+*.fast5
+*.pod5
+*.h5
+*.bam
+*.bai
+*.sam
+*.pkl
+
+# Generated figures and tables
+fig/*
+!fig/.gitkeep
+*.png
+*.pdf
+*.svg
+
+# Logs and temporary files
+*.log
+*.tmp

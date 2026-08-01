@@ -1,0 +1,12 @@
+name: nanopore-zscore-analysis
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - pysam
+  - scikit-learn
+  - seaborn
