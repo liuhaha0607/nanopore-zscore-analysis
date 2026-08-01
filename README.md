@@ -40,7 +40,7 @@ Performs the position-specific Z-score-based detection analysis.
 
 The script:
 
-* uses part of the control reads to calculate the background mean and standard deviation at each reference position;
+* uses the first half of the control reads to calculate the background mean and standard deviation at each reference position; uses the second half of the control reads as an independent control evaluation set;
 * calculates the absolute Z-score of each control and dA-AL-II read;
 * evaluates Z-score thresholds of 1, 2, and 3;
 * calculates false-positive rate, true-positive rate, precision, and F1 score;
@@ -69,7 +69,7 @@ Performs position-specific sequencing-error analysis using aligned BAM files and
 The script:
 
 * calculates position-specific mismatch and deletion counts;
-* calculates total sequencing-error rates;
+* calculates combined mismatch and deletion error rates;
 * summarizes base-quality scores;
 * compares the dA-AL-II and control samples;
 * calculates odds ratios using a pseudocount;
@@ -216,7 +216,7 @@ data/ONT_dAAL.bam
 data/ref.fasta
 ```
 
-Indexed BAM files are recommended:
+bam.fetch(ref_name)
 
 ```text
 data/ONT_control.bam.bai
