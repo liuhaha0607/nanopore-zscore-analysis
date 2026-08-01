@@ -121,7 +121,7 @@ https://doi.org/10.5281/zenodo.21740475
 
 The Zenodo dataset contains:
 
-* raw Oxford Nanopore FAST5 signal files;
+* Oxford Nanopore FAST5 signal files packaged in tar.gz archives;
 * raw Qitan Technology H5 signal files;
 * basecalled and reference-aligned BAM files;
 * BAM index files;
